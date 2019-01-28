@@ -20,24 +20,24 @@ import (
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/responses"
 )
 
-// StartApp invokes the rtc.StartApp API synchronously
-// api document: https://help.aliyun.com/api/rtc/startapp.html
-func (client *Client) StartApp(request *StartAppRequest) (response *StartAppResponse, err error) {
-	response = CreateStartAppResponse()
+// GetAllLayoutId invokes the rtc.GetAllLayoutId API synchronously
+// api document: https://help.aliyun.com/api/rtc/getalllayoutid.html
+func (client *Client) GetAllLayoutId(request *GetAllLayoutIdRequest) (response *GetAllLayoutIdResponse, err error) {
+	response = CreateGetAllLayoutIdResponse()
 	err = client.DoAction(request, response)
 	return
 }
 
-// StartAppWithChan invokes the rtc.StartApp API asynchronously
-// api document: https://help.aliyun.com/api/rtc/startapp.html
+// GetAllLayoutIdWithChan invokes the rtc.GetAllLayoutId API asynchronously
+// api document: https://help.aliyun.com/api/rtc/getalllayoutid.html
 // asynchronous document: https://help.aliyun.com/document_detail/66220.html
-func (client *Client) StartAppWithChan(request *StartAppRequest) (<-chan *StartAppResponse, <-chan error) {
-	responseChan := make(chan *StartAppResponse, 1)
+func (client *Client) GetAllLayoutIdWithChan(request *GetAllLayoutIdRequest) (<-chan *GetAllLayoutIdResponse, <-chan error) {
+	responseChan := make(chan *GetAllLayoutIdResponse, 1)
 	errChan := make(chan error, 1)
 	err := client.AddAsyncTask(func() {
 		defer close(responseChan)
 		defer close(errChan)
-		response, err := client.StartApp(request)
+		response, err := client.GetAllLayoutId(request)
 		if err != nil {
 			errChan <- err
 		} else {
@@ -52,16 +52,16 @@ func (client *Client) StartAppWithChan(request *StartAppRequest) (<-chan *StartA
 	return responseChan, errChan
 }
 
-// StartAppWithCallback invokes the rtc.StartApp API asynchronously
-// api document: https://help.aliyun.com/api/rtc/startapp.html
+// GetAllLayoutIdWithCallback invokes the rtc.GetAllLayoutId API asynchronously
+// api document: https://help.aliyun.com/api/rtc/getalllayoutid.html
 // asynchronous document: https://help.aliyun.com/document_detail/66220.html
-func (client *Client) StartAppWithCallback(request *StartAppRequest, callback func(response *StartAppResponse, err error)) <-chan int {
+func (client *Client) GetAllLayoutIdWithCallback(request *GetAllLayoutIdRequest, callback func(response *GetAllLayoutIdResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
-		var response *StartAppResponse
+		var response *GetAllLayoutIdResponse
 		var err error
 		defer close(result)
-		response, err = client.StartApp(request)
+		response, err = client.GetAllLayoutId(request)
 		callback(response, err)
 		result <- 1
 	})
@@ -73,31 +73,31 @@ func (client *Client) StartAppWithCallback(request *StartAppRequest, callback fu
 	return result
 }
 
-// StartAppRequest is the request struct for api StartApp
-type StartAppRequest struct {
+// GetAllLayoutIdRequest is the request struct for api GetAllLayoutId
+type GetAllLayoutIdRequest struct {
 	*requests.RpcRequest
 	OwnerId requests.Integer `position:"Query" name:"OwnerId"`
 	AppId   string           `position:"Query" name:"AppId"`
 }
 
-// StartAppResponse is the response struct for api StartApp
-type StartAppResponse struct {
+// GetAllLayoutIdResponse is the response struct for api GetAllLayoutId
+type GetAllLayoutIdResponse struct {
 	*responses.BaseResponse
 	RequestId string `json:"RequestId" xml:"RequestId"`
 }
 
-// CreateStartAppRequest creates a request to invoke StartApp API
-func CreateStartAppRequest() (request *StartAppRequest) {
-	request = &StartAppRequest{
+// CreateGetAllLayoutIdRequest creates a request to invoke GetAllLayoutId API
+func CreateGetAllLayoutIdRequest() (request *GetAllLayoutIdRequest) {
+	request = &GetAllLayoutIdRequest{
 		RpcRequest: &requests.RpcRequest{},
 	}
-	request.InitWithApiInfo("rtc", "2018-01-11", "StartApp", "rtc", "openAPI")
+	request.InitWithApiInfo("rtc", "2018-01-11", "GetAllLayoutId", "rtc", "openAPI")
 	return
 }
 
-// CreateStartAppResponse creates a response to parse from StartApp response
-func CreateStartAppResponse() (response *StartAppResponse) {
-	response = &StartAppResponse{
+// CreateGetAllLayoutIdResponse creates a response to parse from GetAllLayoutId response
+func CreateGetAllLayoutIdResponse() (response *GetAllLayoutIdResponse) {
+	response = &GetAllLayoutIdResponse{
 		BaseResponse: &responses.BaseResponse{},
 	}
 	return
